@@ -14,9 +14,9 @@ RUN apt-get update -qy \
     iftop \
     nethogs \
     htop \
-  && apt-get update -qy \
   && echo "deb [trusted=yes] https://repo.iovisor.org/apt/xenial xenial-nightly main" \
     | tee /etc/apt/sources.list.d/iovisor.list \
+  && apt-get update -qy \
   && apt-get install -qy  \
     bcc-tools \
   && rm -rf /var/lib/apt/lists/*
