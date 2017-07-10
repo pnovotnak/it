@@ -20,6 +20,7 @@ RUN apt-get update -qy \
     htop \
     sudo \
     vim \
+    dnsutils \
   && echo "deb [trusted=yes] https://repo.iovisor.org/apt/xenial xenial-nightly main" \
     | tee /etc/apt/sources.list.d/iovisor.list \
   && apt-get update -qy \
