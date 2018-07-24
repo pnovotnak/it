@@ -22,6 +22,7 @@ RUN apt-get update -qy \
     nethogs \
     net-tools \
     nmap \
+    pv \
     strace \
     sudo \
     tmux \
