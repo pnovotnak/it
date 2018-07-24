@@ -1,0 +1,52 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pnovotnak-home
+  labels:
+    role: interactive
+    user: pnovotnak
+spec:
+  resources:
+    requests:
+      storage: 100Gi
+  accessModes:
+    - ReadWriteMany
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    role: interactive
+    user: pnovotnak
+  name: pnovotnak-workstation
+spec:
+  containers:
+  - image: pnovotnak/it
+    command: ['tmux', 'new-session', '-x', '1000', '-y', '1000']
+    imagePullPolicy: Always
+    name: pnovotnak-workstation
+    # Set a custom home dir. Doing this will mean that you'll have to copy
+    # terminal programs your home volume.
+    # - name: HOME
+    #   value: "/mnt/home"
+    resources:
+      requests:
+        cpu: "4"
+        memory: 4Gi
+      limits:
+        cpu: "4"
+        memory: 4Gi
+    stdin: true
+    tty: true
+    volumeMounts:
+    - mountPath: "/mnt/home"
+      name: home-dir
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  terminationGracePeriodSeconds: 5
+  volumes:
+  - name: home-dir
+    persistentVolumeClaim:
+       claimName: pnovotnak-home
