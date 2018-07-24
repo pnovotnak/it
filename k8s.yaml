@@ -22,11 +22,11 @@ metadata:
 spec:
   containers:
   - image: pnovotnak/it
-    command: ['tmux', 'new-session', '-x', '1000', '-y', '1000']
     imagePullPolicy: Always
     name: pnovotnak-workstation
     # Set a custom home dir. Doing this will mean that you'll have to copy
     # terminal programs your home volume.
+    # env:
     # - name: HOME
     #   value: "/mnt/home"
     resources:
