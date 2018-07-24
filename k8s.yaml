@@ -1,3 +1,4 @@
+# Create a directory in which to store traces and things
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -8,9 +9,21 @@ metadata:
 spec:
   resources:
     requests:
-      storage: 100Gi
+      storage: 10Gi
   accessModes:
     - ReadWriteMany
+---
+# This keeps the pod from being deleted in many circumstances
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: pnovotnak-workstation
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      role: interactive
+      user: pnovotnak
 ---
 apiVersion: v1
 kind: Pod
