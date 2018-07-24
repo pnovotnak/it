@@ -55,7 +55,7 @@ spec:
     - mountPath: "/mnt/home"
       name: home-dir
   dnsPolicy: ClusterFirst
-  restartPolicy: Always
+  restartPolicy: OnFailure
   schedulerName: default-scheduler
   securityContext: {}
   terminationGracePeriodSeconds: 5
