@@ -17,6 +17,7 @@ RUN apt-get update -qy \
     iotop \
     iftop \
     nethogs \
+    tmux \
     htop \
     sudo \
     vim \
