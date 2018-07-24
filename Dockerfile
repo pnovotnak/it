@@ -37,6 +37,9 @@ RUN apt-get update -qy \
 
 # Install .files
 COPY .files /root/.files/
-RUN $HOME/.files/install.sh
+RUN yes | $HOME/.files/install.sh
+
+# Final runtime env setup
+WORKDIR /root
 CMD tmux
 
