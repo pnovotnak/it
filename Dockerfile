@@ -1,28 +1,33 @@
-FROM ubuntu:xenial
+FROM ubuntu:bionic
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV PATH            "$PATH:/usr/share/bcc/tools/"
+ENV LANG            en_US.UTF-8
 
+VOLUME [ "/lib/modules" ]
+
+# Install packages
 RUN apt-get update -qy \
   && apt-get install -qy \
-    git \
     apt-transport-https \
-    nmap \
+    bc \
     curl \
-    wget \
-    traceroute \
-    inetutils-ping \
-    mtr \
-    strace \
-    iotop \
-    iftop \
-    nethogs \
-    tmux \
-    htop \
-    sudo \
-    vim \
     dnsutils \
+    git \
+    htop \
+    iftop \
+    inetutils-ping \
+    iotop \
+    mtr \
+    nethogs \
     net-tools \
+    nmap \
+    strace \
+    sudo \
+    tmux \
+    traceroute \
+    vim \
+    wget \
   && echo "deb [trusted=yes] https://repo.iovisor.org/apt/xenial xenial-nightly main" \
     | tee /etc/apt/sources.list.d/iovisor.list \
   && apt-get update -qy \
@@ -30,5 +35,8 @@ RUN apt-get update -qy \
     bcc-tools \
   && rm -rf /var/lib/apt/lists/*
 
-VOLUME [ "/lib/modules" ]
+# Install .files
+COPY .files /root/.files/
+RUN $HOME/.files/install.sh
+CMD tmux
 
