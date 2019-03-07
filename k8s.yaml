@@ -40,14 +40,15 @@ spec:
     # Set a custom home dir. Doing this will mean that you'll have to copy
     # terminal programs your home volume.
     # env:
-    # - name: HOME
-    #   value: "/mnt/home"
+    - name: HOME
+      value: "/mnt/home"
+    workingDir: workingDir: $(HOME)
     resources:
       requests:
-        cpu: "4"
+        cpu: "2"
         memory: 4Gi
       limits:
-        cpu: "4"
+        cpu: "2"
         memory: 4Gi
     stdin: true
     tty: true
