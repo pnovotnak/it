@@ -1,0 +1,66 @@
+# File system in which to store user data
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{user}}-home
+  labels:
+    role: interactive
+    user: {{user}}
+spec:
+  resources:
+    requests:
+      storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+---
+# This keeps the pod from being deleted in many circumstances
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: {{user}}-workstation
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      role: interactive
+      user: {{user}}
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    role: interactive
+    user: {{user}}
+  name: {{user}}-workstation
+spec:
+  containers:
+  - image: {{user}}/it
+    imagePullPolicy: Always
+    name: {{user}}-workstation
+    # Set a custom home dir. Doing this will mean that you'll have to copy
+    # terminal programs your home volume.
+    env:
+    - name: HOME
+      value: "/mnt/home"
+    workingDir: $(HOME)
+    resources:
+      requests:
+        cpu: "2"
+        memory: 4Gi
+      limits:
+        cpu: "2"
+        memory: 4Gi
+    stdin: true
+    tty: true
+    volumeMounts:
+    - mountPath: "/mnt/home"
+      name: home-dir
+  dnsPolicy: ClusterFirst
+  restartPolicy: OnFailure
+  schedulerName: default-scheduler
+  securityContext: {}
+  terminationGracePeriodSeconds: 5
+  volumes:
+  - name: home-dir
+    persistentVolumeClaim:
+       claimName: {{user}}-home
