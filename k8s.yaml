@@ -42,7 +42,7 @@ spec:
     env:
     - name: HOME
       value: "/mnt/home"
-    workingDir: workingDir: $(HOME)
+    workingDir: $(HOME)
     resources:
       requests:
         cpu: "2"
