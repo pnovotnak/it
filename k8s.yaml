@@ -39,7 +39,7 @@ spec:
     name: pnovotnak-workstation
     # Set a custom home dir. Doing this will mean that you'll have to copy
     # terminal programs your home volume.
-    # env:
+    env:
     - name: HOME
       value: "/mnt/home"
     workingDir: workingDir: $(HOME)
