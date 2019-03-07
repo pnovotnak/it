@@ -41,8 +41,8 @@ spec:
     # terminal programs your home volume.
     env:
     - name: HOME
-      value: "/mnt/home"
-    workingDir: $(HOME)
+      value: &home "/mnt/home"
+    workingDir: *home
     resources:
       requests:
         cpu: "2"
