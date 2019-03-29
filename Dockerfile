@@ -25,10 +25,12 @@ ENV LANG            en_US.UTF-8
 VOLUME [ "/lib/modules" ]
 
 # Install packages
-RUN apt-get update -qy \
-  && apt-get install -qy \
+RUN set -ex; \
+  apt-get update; \
+  apt-get install -qy \
     apt-transport-https \
     bc \
+    bpfcc-tools \
     curl \
     dnsutils \
     git \
@@ -46,13 +48,11 @@ RUN apt-get update -qy \
     tmux \
     traceroute \
     vim \
-    wget \
-  && echo "deb [trusted=yes] https://repo.iovisor.org/apt/xenial xenial-nightly main" \
-    | tee /etc/apt/sources.list.d/iovisor.list \
-  && apt-get update -qy \
-  && apt-get install -qy  \
-    bcc-tools \
-  && rm -rf /var/lib/apt/lists/*
+    wget; \
+  rm -rf /var/lib/apt/lists/* ; \
+  curl -Lo /usr/local/bin/kubectl \
+    https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl; \
+  chmod +x /usr/local/bin/kubectl
 
 # Install .files
 COPY .files /root/.files/
