@@ -39,12 +39,14 @@ RUN set -ex; \
     inetutils-ping \
     iotop \
     mtr \
+    netcat \
     nethogs \
     net-tools \
     nmap \
     pv \
     strace \
     sudo \
+    tcpdump \
     tmux \
     traceroute \
     vim \
