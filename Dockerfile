@@ -9,7 +9,7 @@ RUN set -ex; \
   go get fortio.org/fortio; \
   cd /go/src/fortio.org/fortio; \
   git fetch --tags; \
-  git checkout latest_release; \
+  git checkout v1.3.1; \
   make submodule-sync; \
   make official-build-version \
     OFFICIAL_BIN=~/go/bin/fortio; \
