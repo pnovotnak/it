@@ -60,7 +60,7 @@ RUN set -ex; \
 COPY .files /root/.files/
 RUN yes | $HOME/.files/install.sh
 
-COPY --from=fortio-builder /go/src/fortio.org/fortio/ui/templates /go/src/fortio.org/fortio/ui/templates
+COPY --from=fortio-builder /go/src/fortio.org/fortio/ui /go/src/fortio.org/fortio/ui
 COPY --from=fortio-builder /go/bin/fortio /usr/local/bin/fortio
 
 # Final runtime env setup
